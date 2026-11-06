@@ -4,6 +4,9 @@ A production-grade Retrieval-Augmented Generation (RAG) chatbot trained on speec
 
 The chatbot operates as an **AI simulation** that responds in the pragmatic, measured first-person voice of Lee Kuan Yew. Every substantive claim is strictly grounded in the archival records with verifiable in-text citations (`[1]`, `[2]`), and the model explicitly refuses queries not supported by the underlying source documents.
 
+- 🌐 **Live Demo Web App**: [https://chatbot-lky-farhan.streamlit.app](https://chatbot-lky-farhan.streamlit.app)
+- 📂 **GitHub Repository**: [https://github.com/frhnnrj/assessment_maganghub_chatbot](https://github.com/frhnnrj/assessment_maganghub_chatbot)
+
 ---
 
 ## 🏛️ System Architecture
