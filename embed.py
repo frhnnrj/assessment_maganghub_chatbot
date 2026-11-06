@@ -24,7 +24,13 @@ BATCH_SIZE = 100
 def _api_key() -> str:
     key = os.environ.get("GEMINI_API_KEY", "")
     if not key:
-        raise RuntimeError("GEMINI_API_KEY belum di-set. Tambahkan ke file .env")
+        try:
+            import streamlit as st
+            key = st.secrets.get("GEMINI_API_KEY", "")
+        except Exception:
+            pass
+    if not key:
+        raise RuntimeError("GEMINI_API_KEY belum di-set. Tambahkan ke file .env atau Streamlit Secrets")
     return key
 
 

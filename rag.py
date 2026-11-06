@@ -53,17 +53,21 @@ class Index:
         try:
             import chromadb
         except ImportError:
-            raise SystemExit("chromadb belum terinstall. Jalankan: pip install chromadb")
+            raise RuntimeError("chromadb belum terinstall. Jalankan: pip install chromadb")
 
-        if not Path(chroma_path).exists():
-            raise SystemExit(
-                "Vector index belum dibuat. Jalankan dulu:\n"
-                "  python ingest.py\n"
-                "  python build_index.py"
-            )
+        chroma_dir = Path(chroma_path)
+        if not chroma_dir.exists() or not any(chroma_dir.iterdir()):
+            print("[Index] Vector database belum ada, membangun otomatis...")
+            from build_index import build
+            collection = build()
+            return cls(collection)
 
         client = chromadb.PersistentClient(path=chroma_path)
-        collection = client.get_collection(COLLECTION_NAME)
+        try:
+            collection = client.get_collection(COLLECTION_NAME)
+        except Exception:
+            from build_index import build
+            collection = build()
         print(f"[Index] Loaded ChromaDB: {collection.count()} vectors")
         return cls(collection)
 

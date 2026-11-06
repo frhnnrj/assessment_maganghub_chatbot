@@ -44,7 +44,13 @@ def _post(url, headers, body, tries=4, timeout=60):
 def call_llm(system: str, user: str, temperature: float = 0.4) -> str:
     key = os.environ.get("GEMINI_API_KEY")
     if not key:
-        raise FatalAPIError("GEMINI_API_KEY belum di-set.")
+        try:
+            import streamlit as st
+            key = st.secrets.get("GEMINI_API_KEY")
+        except Exception:
+            pass
+    if not key:
+        raise FatalAPIError("GEMINI_API_KEY belum di-set. Tambahkan ke file .env atau Streamlit Secrets.")
     headers = {"x-goog-api-key": key, "Content-Type": "application/json"}
     body = {
         "systemInstruction": {"parts": [{"text": system}]},
