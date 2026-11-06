@@ -1,0 +1,6 @@
+---
+title: (contoh format, file ini diabaikan)
+date: 1900-01-01
+source_url: https://example.invalid
+---
+Tempel teks pidato di sini.
